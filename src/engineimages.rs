@@ -83,6 +83,9 @@ pub struct EngineImageStatus {
     #[serde(default, skip_serializing_if = "Option::is_none", rename = "gitCommit")]
     #[cfg_attr(feature = "builder", builder(default, setter(strip_option)))]
     pub git_commit: Option<String>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    #[cfg_attr(feature = "builder", builder(default, setter(strip_option)))]
+    pub incompatible: Option<bool>,
     #[serde(
         default,
         skip_serializing_if = "Option::is_none",
