@@ -40,7 +40,7 @@ pub struct VolumeSpec {
     )]
     #[cfg_attr(feature = "builder", builder(default, setter(strip_option)))]
     pub access_mode: Option<VolumeAccessMode>,
-    /// Deprecated: Replaced by field `dataEngine`.
+    /// Deprecated:Replaced by field `dataEngine`.'
     #[serde(
         default,
         skip_serializing_if = "Option::is_none",
@@ -108,6 +108,14 @@ pub struct VolumeSpec {
     )]
     #[cfg_attr(feature = "builder", builder(default, setter(strip_option)))]
     pub engine_image: Option<String>,
+    /// Setting that freezes the filesystem on the root partition before a snapshot is created.
+    #[serde(
+        default,
+        skip_serializing_if = "Option::is_none",
+        rename = "freezeFilesystemForSnapshot"
+    )]
+    #[cfg_attr(feature = "builder", builder(default, setter(strip_option)))]
+    pub freeze_filesystem_for_snapshot: Option<VolumeFreezeFilesystemForSnapshot>,
     #[serde(
         default,
         skip_serializing_if = "Option::is_none",
@@ -290,6 +298,18 @@ pub enum VolumeDataLocality {
     BestEffort,
     #[serde(rename = "strict-local")]
     StrictLocal,
+}
+
+/// VolumeSpec defines the desired state of the Longhorn volume
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq)]
+#[cfg_attr(feature = "schemars", derive(JsonSchema))]
+pub enum VolumeFreezeFilesystemForSnapshot {
+    #[serde(rename = "ignored")]
+    Ignored,
+    #[serde(rename = "enabled")]
+    Enabled,
+    #[serde(rename = "disabled")]
+    Disabled,
 }
 
 /// VolumeSpec defines the desired state of the Longhorn volume
@@ -560,6 +580,20 @@ pub struct VolumeStatus {
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct VolumeStatusCloneStatus {
+    #[serde(
+        default,
+        skip_serializing_if = "Option::is_none",
+        rename = "attemptCount"
+    )]
+    #[cfg_attr(feature = "builder", builder(default, setter(strip_option)))]
+    pub attempt_count: Option<i64>,
+    #[serde(
+        default,
+        skip_serializing_if = "Option::is_none",
+        rename = "nextAllowedAttemptAt"
+    )]
+    #[cfg_attr(feature = "builder", builder(default, setter(strip_option)))]
+    pub next_allowed_attempt_at: Option<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     #[cfg_attr(feature = "builder", builder(default, setter(strip_option)))]
     pub snapshot: Option<String>,

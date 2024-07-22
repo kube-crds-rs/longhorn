@@ -33,9 +33,48 @@ pub struct BackingImageSpec {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     #[cfg_attr(feature = "builder", builder(default, setter(strip_option)))]
     pub checksum: Option<String>,
+    #[serde(
+        default,
+        skip_serializing_if = "Option::is_none",
+        rename = "diskFileSpecMap"
+    )]
+    #[cfg_attr(feature = "builder", builder(default, setter(strip_option)))]
+    pub disk_file_spec_map: Option<BTreeMap<String, BackingImageDiskFileSpecMap>>,
+    #[serde(
+        default,
+        skip_serializing_if = "Option::is_none",
+        rename = "diskSelector"
+    )]
+    #[cfg_attr(feature = "builder", builder(default, setter(strip_option)))]
+    pub disk_selector: Option<Vec<String>>,
+    /// Deprecated. We are now using DiskFileSpecMap to assign different spec to the file on different disks.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     #[cfg_attr(feature = "builder", builder(default, setter(strip_option)))]
     pub disks: Option<BTreeMap<String, String>>,
+    #[serde(
+        default,
+        skip_serializing_if = "Option::is_none",
+        rename = "minNumberOfCopies"
+    )]
+    #[cfg_attr(feature = "builder", builder(default, setter(strip_option)))]
+    pub min_number_of_copies: Option<i64>,
+    #[serde(
+        default,
+        skip_serializing_if = "Option::is_none",
+        rename = "nodeSelector"
+    )]
+    #[cfg_attr(feature = "builder", builder(default, setter(strip_option)))]
+    pub node_selector: Option<Vec<String>>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    #[cfg_attr(feature = "builder", builder(default, setter(strip_option)))]
+    pub secret: Option<String>,
+    #[serde(
+        default,
+        skip_serializing_if = "Option::is_none",
+        rename = "secretNamespace"
+    )]
+    #[cfg_attr(feature = "builder", builder(default, setter(strip_option)))]
+    pub secret_namespace: Option<String>,
     #[serde(
         default,
         skip_serializing_if = "Option::is_none",
@@ -52,6 +91,19 @@ pub struct BackingImageSpec {
     pub source_type: Option<BackingImageSourceType>,
 }
 
+#[derive(Serialize, Deserialize, Clone, Debug, Default, PartialEq)]
+#[cfg_attr(feature = "builder", derive(TypedBuilder))]
+#[cfg_attr(feature = "schemars", derive(JsonSchema))]
+pub struct BackingImageDiskFileSpecMap {
+    #[serde(
+        default,
+        skip_serializing_if = "Option::is_none",
+        rename = "evictionRequested"
+    )]
+    #[cfg_attr(feature = "builder", builder(default, setter(strip_option)))]
+    pub eviction_requested: Option<bool>,
+}
+
 /// BackingImageSpec defines the desired state of the Longhorn backing image
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
@@ -64,6 +116,8 @@ pub enum BackingImageSourceType {
     ExportFromVolume,
     #[serde(rename = "restore")]
     Restore,
+    #[serde(rename = "clone")]
+    Clone,
 }
 
 /// BackingImageStatus defines the observed state of the Longhorn backing image status

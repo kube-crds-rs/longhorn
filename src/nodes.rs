@@ -31,7 +31,6 @@ use self::prelude::*;
 #[kube(derive = "Default")]
 #[kube(derive = "PartialEq")]
 pub struct NodeSpec {
-    /// Allow scheduling replicas on the node.
     #[serde(
         default,
         skip_serializing_if = "Option::is_none",
@@ -142,7 +141,6 @@ pub struct NodeStatus {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     #[cfg_attr(feature = "builder", builder(default, setter(strip_option)))]
     pub conditions: Option<Vec<Condition>>,
-    /// The status of the disks on the node.
     #[serde(
         default,
         skip_serializing_if = "Option::is_none",
@@ -150,11 +148,9 @@ pub struct NodeStatus {
     )]
     #[cfg_attr(feature = "builder", builder(default, setter(strip_option)))]
     pub disk_status: Option<BTreeMap<String, NodeStatusDiskStatus>>,
-    /// The Region of the node.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     #[cfg_attr(feature = "builder", builder(default, setter(strip_option)))]
     pub region: Option<String>,
-    /// The status of the snapshot integrity check.
     #[serde(
         default,
         skip_serializing_if = "Option::is_none",
@@ -162,13 +158,11 @@ pub struct NodeStatus {
     )]
     #[cfg_attr(feature = "builder", builder(default, setter(strip_option)))]
     pub snapshot_check_status: Option<NodeStatusSnapshotCheckStatus>,
-    /// The Zone of the node.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     #[cfg_attr(feature = "builder", builder(default, setter(strip_option)))]
     pub zone: Option<String>,
 }
 
-/// The status of the disks on the node.
 #[derive(Serialize, Deserialize, Clone, Debug, Default, PartialEq)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
@@ -239,7 +233,6 @@ pub struct NodeStatusDiskStatus {
     pub storage_scheduled: Option<i64>,
 }
 
-/// The status of the snapshot integrity check.
 #[derive(Serialize, Deserialize, Clone, Debug, Default, PartialEq)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]

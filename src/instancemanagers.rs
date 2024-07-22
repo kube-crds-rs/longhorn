@@ -142,7 +142,7 @@ pub struct InstanceManagerStatusInstanceEngines {
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct InstanceManagerStatusInstanceEnginesSpec {
-    /// Deprecated: Replaced by field `dataEngine`.
+    /// Deprecated:Replaced by field `dataEngine`.
     #[serde(
         default,
         skip_serializing_if = "Option::is_none",
@@ -194,6 +194,20 @@ pub struct InstanceManagerStatusInstanceEnginesStatus {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     #[cfg_attr(feature = "builder", builder(default, setter(strip_option)))]
     pub state: Option<String>,
+    #[serde(
+        default,
+        skip_serializing_if = "Option::is_none",
+        rename = "targetPortEnd"
+    )]
+    #[cfg_attr(feature = "builder", builder(default, setter(strip_option)))]
+    pub target_port_end: Option<i32>,
+    #[serde(
+        default,
+        skip_serializing_if = "Option::is_none",
+        rename = "targetPortStart"
+    )]
+    #[cfg_attr(feature = "builder", builder(default, setter(strip_option)))]
+    pub target_port_start: Option<i32>,
     #[serde(default, skip_serializing_if = "Option::is_none", rename = "type")]
     #[cfg_attr(feature = "builder", builder(default, setter(strip_option)))]
     pub r#type: Option<String>,
@@ -215,7 +229,7 @@ pub struct InstanceManagerStatusInstanceReplicas {
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct InstanceManagerStatusInstanceReplicasSpec {
-    /// Deprecated: Replaced by field `dataEngine`.
+    /// Deprecated:Replaced by field `dataEngine`.
     #[serde(
         default,
         skip_serializing_if = "Option::is_none",
@@ -267,6 +281,20 @@ pub struct InstanceManagerStatusInstanceReplicasStatus {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     #[cfg_attr(feature = "builder", builder(default, setter(strip_option)))]
     pub state: Option<String>,
+    #[serde(
+        default,
+        skip_serializing_if = "Option::is_none",
+        rename = "targetPortEnd"
+    )]
+    #[cfg_attr(feature = "builder", builder(default, setter(strip_option)))]
+    pub target_port_end: Option<i32>,
+    #[serde(
+        default,
+        skip_serializing_if = "Option::is_none",
+        rename = "targetPortStart"
+    )]
+    #[cfg_attr(feature = "builder", builder(default, setter(strip_option)))]
+    pub target_port_start: Option<i32>,
     #[serde(default, skip_serializing_if = "Option::is_none", rename = "type")]
     #[cfg_attr(feature = "builder", builder(default, setter(strip_option)))]
     pub r#type: Option<String>,
@@ -289,7 +317,7 @@ pub struct InstanceManagerStatusInstances {
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct InstanceManagerStatusInstancesSpec {
-    /// Deprecated: Replaced by field `dataEngine`.
+    /// Deprecated:Replaced by field `dataEngine`.
     #[serde(
         default,
         skip_serializing_if = "Option::is_none",
@@ -341,6 +369,20 @@ pub struct InstanceManagerStatusInstancesStatus {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     #[cfg_attr(feature = "builder", builder(default, setter(strip_option)))]
     pub state: Option<String>,
+    #[serde(
+        default,
+        skip_serializing_if = "Option::is_none",
+        rename = "targetPortEnd"
+    )]
+    #[cfg_attr(feature = "builder", builder(default, setter(strip_option)))]
+    pub target_port_end: Option<i32>,
+    #[serde(
+        default,
+        skip_serializing_if = "Option::is_none",
+        rename = "targetPortStart"
+    )]
+    #[cfg_attr(feature = "builder", builder(default, setter(strip_option)))]
+    pub target_port_start: Option<i32>,
     #[serde(default, skip_serializing_if = "Option::is_none", rename = "type")]
     #[cfg_attr(feature = "builder", builder(default, setter(strip_option)))]
     pub r#type: Option<String>,

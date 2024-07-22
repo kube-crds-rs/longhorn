@@ -35,7 +35,8 @@ pub struct OrphanSpec {
     #[serde(default, skip_serializing_if = "Option::is_none", rename = "nodeID")]
     #[cfg_attr(feature = "builder", builder(default, setter(strip_option)))]
     pub node_id: Option<String>,
-    /// The type of the orphaned data. Can be "replica".
+    /// The type of the orphaned data.
+    /// Can be "replica".
     #[serde(
         default,
         skip_serializing_if = "Option::is_none",

@@ -42,7 +42,8 @@ pub struct BackupBackingImageSpec {
     )]
     #[cfg_attr(feature = "builder", builder(default, setter(strip_option)))]
     pub sync_requested_at: Option<String>,
-    /// Is this CR created by user through API or UI. Required
+    /// Is this CR created by user through API or UI.
+    /// Required
     #[serde(rename = "userCreated")]
     pub user_created: bool,
 }
@@ -120,7 +121,8 @@ pub struct BackupBackingImageStatus {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     #[cfg_attr(feature = "builder", builder(default, setter(strip_option)))]
     pub size: Option<i64>,
-    /// The backing image backup creation state. Can be "", "InProgress", "Completed", "Error", "Unknown".
+    /// The backing image backup creation state.
+    /// Can be "", "InProgress", "Completed", "Error", "Unknown".
     #[serde(default, skip_serializing_if = "Option::is_none")]
     #[cfg_attr(feature = "builder", builder(default, setter(strip_option)))]
     pub state: Option<String>,

@@ -34,7 +34,7 @@ pub struct EngineSpec {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     #[cfg_attr(feature = "builder", builder(default, setter(strip_option)))]
     pub active: Option<bool>,
-    /// Deprecated: Replaced by field `dataEngine`.
+    /// Deprecated:Replaced by field `dataEngine`.
     #[serde(
         default,
         skip_serializing_if = "Option::is_none",
@@ -322,7 +322,9 @@ pub struct EngineStatus {
     )]
     #[cfg_attr(feature = "builder", builder(default, setter(strip_option)))]
     pub replica_mode_map: Option<BTreeMap<String, String>>,
-    /// ReplicaTransitionTimeMap records the time a replica in ReplicaModeMap transitions from one mode to another (or from not being in the ReplicaModeMap to being in it). This information is sometimes required by other controllers (e.g. the volume controller uses it to determine the correct value for replica.Spec.lastHealthyAt).
+    /// ReplicaTransitionTimeMap records the time a replica in ReplicaModeMap transitions from one mode to another (or
+    /// from not being in the ReplicaModeMap to being in it). This information is sometimes required by other controllers
+    /// (e.g. the volume controller uses it to determine the correct value for replica.Spec.lastHealthyAt).
     #[serde(
         default,
         skip_serializing_if = "Option::is_none",

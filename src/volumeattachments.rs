@@ -46,7 +46,8 @@ pub struct VolumeAttachmentSpec {
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct VolumeAttachmentAttachmentTickets {
-    /// A sequence number representing a specific generation of the desired state. Populated by the system. Read-only.
+    /// A sequence number representing a specific generation of the desired state.
+    /// Populated by the system. Read-only.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     #[cfg_attr(feature = "builder", builder(default, setter(strip_option)))]
     pub generation: Option<i64>,
@@ -90,7 +91,8 @@ pub struct VolumeAttachmentStatusAttachmentTicketStatuses {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     #[cfg_attr(feature = "builder", builder(default, setter(strip_option)))]
     pub conditions: Option<Vec<Condition>>,
-    /// A sequence number representing a specific generation of the desired state. Populated by the system. Read-only.
+    /// A sequence number representing a specific generation of the desired state.
+    /// Populated by the system. Read-only.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     #[cfg_attr(feature = "builder", builder(default, setter(strip_option)))]
     pub generation: Option<i64>,

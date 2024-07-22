@@ -50,11 +50,17 @@ pub struct RecurringJobSpec {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     #[cfg_attr(feature = "builder", builder(default, setter(strip_option)))]
     pub name: Option<String>,
+    /// The parameters of the snapshot/backup.
+    /// Support parameters: "full-backup-interval".
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    #[cfg_attr(feature = "builder", builder(default, setter(strip_option)))]
+    pub parameters: Option<BTreeMap<String, String>>,
     /// The retain count of the snapshot/backup.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     #[cfg_attr(feature = "builder", builder(default, setter(strip_option)))]
     pub retain: Option<i64>,
-    /// The recurring job task. Can be "snapshot", "snapshot-force-create", "snapshot-cleanup", "snapshot-delete", "backup", "backup-force-create" or "filesystem-trim"
+    /// The recurring job task.
+    /// Can be "snapshot", "snapshot-force-create", "snapshot-cleanup", "snapshot-delete", "backup", "backup-force-create" or "filesystem-trim"
     #[serde(default, skip_serializing_if = "Option::is_none")]
     #[cfg_attr(feature = "builder", builder(default, setter(strip_option)))]
     pub task: Option<RecurringJobTask>,
@@ -85,6 +91,14 @@ pub enum RecurringJobTask {
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct RecurringJobStatus {
+    /// The number of jobs that have been triggered.
+    #[serde(
+        default,
+        skip_serializing_if = "Option::is_none",
+        rename = "executionCount"
+    )]
+    #[cfg_attr(feature = "builder", builder(default, setter(strip_option)))]
+    pub execution_count: Option<i64>,
     /// The owner ID which is responsible to reconcile this recurring job CR.
     #[serde(default, skip_serializing_if = "Option::is_none", rename = "ownerID")]
     #[cfg_attr(feature = "builder", builder(default, setter(strip_option)))]

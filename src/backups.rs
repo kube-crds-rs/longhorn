@@ -30,6 +30,15 @@ use self::prelude::*;
 #[kube(derive = "Default")]
 #[kube(derive = "PartialEq")]
 pub struct BackupSpec {
+    /// The backup mode of this backup.
+    /// Can be "full" or "incremental"
+    #[serde(
+        default,
+        skip_serializing_if = "Option::is_none",
+        rename = "backupMode"
+    )]
+    #[cfg_attr(feature = "builder", builder(default, setter(strip_option)))]
+    pub backup_mode: Option<BackupBackupMode>,
     /// The labels of snapshot backup.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     #[cfg_attr(feature = "builder", builder(default, setter(strip_option)))]
@@ -50,6 +59,18 @@ pub struct BackupSpec {
     )]
     #[cfg_attr(feature = "builder", builder(default, setter(strip_option)))]
     pub sync_requested_at: Option<String>,
+}
+
+/// BackupSpec defines the desired state of the Longhorn backup
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq)]
+#[cfg_attr(feature = "schemars", derive(JsonSchema))]
+pub enum BackupBackupMode {
+    #[serde(rename = "full")]
+    Full,
+    #[serde(rename = "incremental")]
+    Incremental,
+    #[serde(rename = "")]
+    KopiumEmpty,
 }
 
 /// BackupStatus defines the observed state of the Longhorn backup
@@ -93,6 +114,14 @@ pub struct BackupStatus {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     #[cfg_attr(feature = "builder", builder(default, setter(strip_option)))]
     pub messages: Option<BTreeMap<String, String>>,
+    /// Size in bytes of newly uploaded data
+    #[serde(
+        default,
+        skip_serializing_if = "Option::is_none",
+        rename = "newlyUploadDataSize"
+    )]
+    #[cfg_attr(feature = "builder", builder(default, setter(strip_option)))]
+    pub newly_upload_data_size: Option<String>,
     /// The node ID on which the controller is responsible to reconcile this backup CR.
     #[serde(default, skip_serializing_if = "Option::is_none", rename = "ownerID")]
     #[cfg_attr(feature = "builder", builder(default, setter(strip_option)))]
@@ -101,6 +130,14 @@ pub struct BackupStatus {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     #[cfg_attr(feature = "builder", builder(default, setter(strip_option)))]
     pub progress: Option<i64>,
+    /// Size in bytes of reuploaded data
+    #[serde(
+        default,
+        skip_serializing_if = "Option::is_none",
+        rename = "reUploadedDataSize"
+    )]
+    #[cfg_attr(feature = "builder", builder(default, setter(strip_option)))]
+    pub re_uploaded_data_size: Option<String>,
     /// The address of the replica that runs snapshot backup.
     #[serde(
         default,
@@ -129,7 +166,8 @@ pub struct BackupStatus {
     )]
     #[cfg_attr(feature = "builder", builder(default, setter(strip_option)))]
     pub snapshot_name: Option<String>,
-    /// The backup creation state. Can be "", "InProgress", "Completed", "Error", "Unknown".
+    /// The backup creation state.
+    /// Can be "", "InProgress", "Completed", "Error", "Unknown".
     #[serde(default, skip_serializing_if = "Option::is_none")]
     #[cfg_attr(feature = "builder", builder(default, setter(strip_option)))]
     pub state: Option<String>,
